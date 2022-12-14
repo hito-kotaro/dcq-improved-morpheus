@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AppService } from './app.service';
       autoLoadEntities: true,
       ssl: process.env.POSTGRESS_SSL === 'true' ? true : false,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
