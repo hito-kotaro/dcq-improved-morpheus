@@ -1,6 +1,8 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
+import { Permissions } from 'src/permissions/permissions.decorator';
+import { PermissionsGuard } from 'src/permissions/permissions.guard';
 
 @Controller()
 export class AppController {
@@ -11,9 +13,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Get('/protect')
-  getSecret(): string {
+  @Permissions('read:protect')
+  getSecret(@Req() req): string {
+    console.log(req.user.sub);
     return 'protected!';
   }
 }
