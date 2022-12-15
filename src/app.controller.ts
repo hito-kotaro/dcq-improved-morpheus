@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Permissions } from 'src/permissions/permissions.decorator';
@@ -11,6 +11,11 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Post('/signUp')
+  signUp(@Body() req: any): string {
+    return this.appService.signUp(req);
   }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
