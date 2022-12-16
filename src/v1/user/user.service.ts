@@ -10,7 +10,7 @@ export class UserService {
   ) {}
 
   async register(id: string): Promise<Users> {
-    Logger.log(id);
+    Logger.log({ type: 'register', id });
     return await this.userRepository.save({
       id,
     });

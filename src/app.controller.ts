@@ -13,9 +13,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('/signUp')
-  signUp(@Body() req: any): string {
-    return this.appService.signUp(req);
+  @Post('/echo')
+  async echoPoint(@Body() event: any) {
+    return event;
   }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
