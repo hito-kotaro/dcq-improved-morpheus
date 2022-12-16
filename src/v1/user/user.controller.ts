@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { Users } from 'src/entity/user.entity';
 import { UserService } from './user.service';
 
@@ -8,6 +8,7 @@ export class UserController {
 
   @Post('/test/register')
   async testSignUp(@Body() event: any) {
+    Logger.log(event);
     return event;
   }
 
