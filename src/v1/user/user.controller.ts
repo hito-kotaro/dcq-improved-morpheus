@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Users } from 'src/entity/user.entity';
 import { Permissions } from 'src/permissions/permissions.decorator';
@@ -8,12 +8,6 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @Post('/test/register')
-  async testSignUp(@Body() event: any) {
-    Logger.log(event);
-    return event;
-  }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Post('/register')
