@@ -4,6 +4,6 @@ import { QuestController } from './quest.controller';
 
 @Module({
   providers: [QuestService],
-  controllers: [QuestController]
+  controllers: [QuestController],
 })
 export class QuestModule {}
