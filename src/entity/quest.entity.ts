@@ -4,7 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
@@ -13,8 +13,8 @@ import { Users } from './user.entity';
 @Entity()
 export class Quests {
   @ApiProperty()
-  @PrimaryColumn()
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ApiProperty()
   @Column()
@@ -34,9 +34,9 @@ export class Quests {
 
   @ApiProperty()
   @ManyToOne(() => Users, (user) => user.id)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'owner_id' })
   owner: Users;
-
+  // auth0|639c4619aa12294d12d76049
   @ApiProperty()
   @CreateDateColumn({
     type: 'timestamp',
