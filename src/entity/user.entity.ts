@@ -14,19 +14,19 @@ export class Users {
   id: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   first_name: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   last_name: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ default: 0 })
   point: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
   @ApiProperty()
