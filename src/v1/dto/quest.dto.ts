@@ -54,9 +54,6 @@ export class CreateQuest {
   @ApiProperty({ type: Number })
   @IsPositive()
   reward: number;
-
-  @ApiProperty({ type: Users })
-  owner: Users;
 }
 
 export class UpdateQuest {
@@ -76,8 +73,4 @@ export class UpdateQuest {
   @IsPositive()
   @IsOptional()
   reward?: number;
-
-  @ApiProperty({ type: Users })
-  @IsOptional()
-  owner: Users;
 }

@@ -36,7 +36,7 @@ export class Quests {
   @ManyToOne(() => Users, (user) => user.id)
   @JoinColumn({ name: 'owner_id' })
   owner: Users;
-  // auth0|639c4619aa12294d12d76049
+
   @ApiProperty()
   @CreateDateColumn({
     type: 'timestamp',
