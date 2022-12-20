@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quests } from 'src/entity/quest.entity';
 import { Repository } from 'typeorm';
+import { NoticeService } from '../notice/notice.service';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -9,6 +10,7 @@ export class QuestService {
   constructor(
     @InjectRepository(Quests) private questRepository: Repository<Quests>,
     private readonly userService: UserService,
+    private readonly noticeSerivce: NoticeService,
   ) {}
 
   async fetch() {
@@ -24,8 +26,10 @@ export class QuestService {
       reward: data.reward,
       owner: ownerId,
     };
+    const quest = await this.questRepository.save(newQuest);
+    this.noticeSerivce.notice(quest);
 
-    return await this.questRepository.save(newQuest);
+    return quest;
   }
 
   async update(id, data) {
