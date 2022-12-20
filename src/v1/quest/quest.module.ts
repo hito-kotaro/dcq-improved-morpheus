@@ -4,9 +4,10 @@ import { QuestController } from './quest.controller';
 import { Quests } from 'src/entity/quest.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
+import { NoticeModule } from '../notice/notice.module';
 
 @Module({
-  imports: [UserModule, TypeOrmModule.forFeature([Quests])],
+  imports: [NoticeModule, UserModule, TypeOrmModule.forFeature([Quests])],
   providers: [QuestService],
   controllers: [QuestController],
 })
