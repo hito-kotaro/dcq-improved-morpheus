@@ -36,7 +36,7 @@ env:
   ECS_SERVICE: mprheus
   ECS_CLUSTER: morpheus
   ECS_TASK_DEFINITION: infrastructure/ecs-task-def.json
-  CONTAINER_NAME: morpheus
+  CONTAINER_NAME: morpheus-test
 
 permissions:
   id-token: write
