@@ -12,6 +12,9 @@ const source = new DataSource({
   database: process.env.POSTGRES_DATABASE,
   entities: ['src/entity/*.entity.ts'],
   migrations: ['src/migration/**/*.ts'],
+  extra: {
+    ssl: process.env.POSTGRESS_SSL === 'true' ? true : false,
+  },
 });
 
 export default source;

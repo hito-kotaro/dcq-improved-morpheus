@@ -31,6 +31,10 @@ check_aws_profile:
 		exit 1; \
 	fi
 
+.PHONY: build
+build:
+	docker build -t morpheus-sample -f $(APP_DOCKERFILE) .
+
 .PHONY: check_aws_profile
 push: check_aws_profile
 	aws ecr get-login-password --region ap-northeast-1 --profile=tohi.work-admin | docker login --username AWS --password-stdin 665378081513.dkr.ecr.ap-northeast-1.amazonaws.com 

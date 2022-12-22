@@ -17,11 +17,10 @@ services:
   api:
     depends_on:
       - db
-    image: morpheus-api
     container_name: morpheus_api
-    # build:
-    # context: .
-    # dockerfile: api/Dockerfile
+    build:
+      context: ../
+      dockerfile: infrastructure/api/Dockerfile
     tty: true
     ports:
       - '3000:7000'
