@@ -35,7 +35,7 @@ env:
   ECR_REPOSITORY: morpheus
   ECS_SERVICE: mprheus
   ECS_CLUSTER: morpheus
-  ECS_TASK_DEFINITION: morpheus-api
+  ECS_TASK_DEFINITION: infrastructure/ecs-task-def.json
   CONTAINER_NAME: morpheus
 
 permissions:
