@@ -15,5 +15,6 @@ async function bootstrap() {
   );
   await app.listen(process.env.PORT, '0.0.0.0');
   Logger.log(`Connection Database : ${process.env.POSTGRES_DATABASE}`);
+  Logger.log(`Listen : ${process.env.PORT}`);
 }
 bootstrap();

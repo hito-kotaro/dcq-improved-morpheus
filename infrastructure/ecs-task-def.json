@@ -7,6 +7,15 @@
   "memory": "512",
   "containerDefinitions": [
     {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/morpheus-test",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "name": "morpheus-test",
       "image": "665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus",
       "essential": true,
