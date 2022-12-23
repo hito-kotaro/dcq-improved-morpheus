@@ -33,7 +33,7 @@ on:
 env:
   AWS_REGION: ap-northeast-1
   ECR_REPOSITORY: morpheus
-  ECS_SERVICE: mprheus-test-service
+  ECS_SERVICE: morpheus-test-service
   ECS_CLUSTER: morpheus-test
   ECS_TASK_DEFINITION: infrastructure/ecs-task-def.json
   CONTAINER_NAME: morpheus-test
