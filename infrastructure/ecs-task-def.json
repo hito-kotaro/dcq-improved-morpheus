@@ -9,7 +9,6 @@
     {
       "logConfiguration": {
         "logDriver": "awslogs",
-        "secretOptions": null,
         "options": {
           "awslogs-group": "/ecs/morpheus-test",
           "awslogs-region": "ap-northeast-1",
@@ -17,13 +16,57 @@
         }
       },
       "name": "morpheus-test",
-      "image": "665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus",
+      "image": "665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus:c434efdd3318f2fa3e4f9c087ca3f3af23a24e8b",
       "essential": true,
       "memory": 384,
       "memoryReservation": 128,
       "portMappings": [
         {
           "containerPort": 7000
+        }
+      ],
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "7000"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "POSTGRESS_SSL",
+          "value": "true"
+        }
+      ],
+      "secrets": [
+        {
+          "valueFrom": "AUTH0_AUDIENCE",
+          "name": "AUTH0_AUDIENCE"
+        },
+        {
+          "valueFrom": "AUTH0_ISSUER_URL",
+          "name": "AUTH0_ISSUER_URL"
+        },
+        {
+          "valueFrom": "POSTGRES_DATABASE",
+          "name": "POSTGRES_DATABASE"
+        },
+        {
+          "valueFrom": "POSTGRES_HOST",
+          "name": "POSTGRES_HOST"
+        },
+        {
+          "valueFrom": "POSTGRES_PASSWORD",
+          "name": "POSTGRES_PASSWORD"
+        },
+        {
+          "valueFrom": "POSTGRES_USER",
+          "name": "POSTGRES_USER"
+        },
+        {
+          "valueFrom": "SLACK_WEB_HOOK_URL",
+          "name": "SLACK_WEB_HOOK_URL"
         }
       ]
     }
