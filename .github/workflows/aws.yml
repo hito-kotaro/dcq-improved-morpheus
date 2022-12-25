@@ -62,11 +62,11 @@ jobs:
           path: ${{ env.PATH_CACHE }}
           key: ${{ steps.imagetag.outputs.TAG }}
 
-      - name: Load Docker image if exists
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: |
-          ls /tmp/docker-img-arch/
-          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
+      # - name: Load Docker image if exists
+      #   if: steps.cache.outputs.cache-hit == 'true'
+      #   run: |
+      #     ls /tmp/docker-img-arch/
+      #     docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
 
       - name: Login to Amazon ECR
         id: login-ecr
