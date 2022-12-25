@@ -1,5 +1,5 @@
 {
-  "family": "morpheus-test",
+  "family": "morpheus",
   "executionRoleArn": "arn:aws:iam::665378081513:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
@@ -10,13 +10,13 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/morpheus-test",
+          "awslogs-group": "/ecs/morpheus",
           "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "ecs"
         }
       },
-      "name": "morpheus-test",
-      "image": "665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus:c434efdd3318f2fa3e4f9c087ca3f3af23a24e8b",
+      "name": "morpheus",
+      "image": "665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus:v-dev-0.0.0",
       "essential": true,
       "memory": 384,
       "memoryReservation": 128,
