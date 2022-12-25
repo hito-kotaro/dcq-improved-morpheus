@@ -46,7 +46,7 @@ jobs:
       - name: Create image tag
         id: imagetag
         run: |
-          HASH_IMAGE=${{ hashFiles($DOCKERFILE) }}
+          HASH_IMAGE=${{ hashFiles(${DOCKERFILE}) }}
           VARIANT=$(TZ=UTC-9 date '+Y%m')${HASH_IMAGE:0:7}
           NAME_IMAGE=myTestImage
           TAG="${NAME_IMAGE}:${VARIANT}"
