@@ -2,8 +2,11 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    tags:
-      - v*
+    push:
+      branches:
+        - fearute/add_workflow
+      tags:
+        - v*
 
 env:
   AWS_REGION: ap-northeast-1
