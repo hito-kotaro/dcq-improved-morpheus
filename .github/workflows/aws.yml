@@ -52,7 +52,6 @@ jobs:
           TAG="${NAME_IMAGE}:${VARIANT}"
           NAME_TAR="${NAME_IMAGE}.${VARIANT}.tar"
           PATH_TAR=${{ env.PATH_CACHE }}"/${NAME_TAR}"
-          : # 変数を他の run でも使えるように output
           echo "::set-output name=TAG::${TAG}"
           echo "::set-output name=PATH_TAR::${PATH_TAR}"
 
@@ -73,13 +72,10 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ steps.variables.outputs.version }}
         run: |
-          : # キャッシュディレクトリを作成
           mkdir -p ${{ env.PATH_CACHE }}
-          : # イメージのビルド
           docker build -f $DOCKERFILE -t ${{ steps.imagetag.outputs.TAG }} .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-          : # イメージのキャッシュ（tar をキャッシュ・ディレクトリに出力）
           docker save --output ${{ steps.imagetag.outputs.PATH_TAR }} ${{ steps.imagetag.outputs.TAG }}
 
       - name: Login to Amazon ECR
