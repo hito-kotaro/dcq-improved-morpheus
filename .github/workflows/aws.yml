@@ -57,7 +57,7 @@ jobs:
         id: build-image
         with:
           push: true
-          tags: ${{ steps.login-ecr.outputu.registry}}/${{ env.ECR_REPOSITORY }}:${{ steps.variables.outputs.version }}
+          tags: ${{ steps.login-ecr.outputu.registry}}:${{ steps.variables.outputs.version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
