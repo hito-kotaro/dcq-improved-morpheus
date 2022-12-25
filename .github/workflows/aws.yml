@@ -64,9 +64,9 @@ jobs:
 
       - name: Load Docker image if exists
         if: steps.cache.outputs.cache-hit == 'true'
-        run: |
-          echo ${{ steps.imagetag.outputs.PATH_TAR }}
-          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
+        run: ls
+      #     echo ${{ steps.imagetag.outputs.PATH_TAR }}
+      #     docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -90,21 +90,8 @@ jobs:
           ls ${{ env.PATH_CACHE }}
           echo ${{ env.PATH_CACHE }}
           echo ${{ env.PATH_TAR }}
-        # morpheus.Y12b1d26ae.tarというファイル名
 
-      # - name: Build, tag, and push image to Amazon ECR
-      #   id: build-image
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     IMAGE_TAG: ${{ steps.variables.outputs.version }}
-      #   run: |
-      #     # Build a docker container and
-      #     # push it to ECR so that it can
-      #     # be deployed to ECS.
-      #     echo $VERSION
-      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f infrastructure/api/Dockerfile .
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      #     echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        # morpheus.Y12b1d26ae.tarというファイル名
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
@@ -114,10 +101,10 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+      # - name: Deploy Amazon ECS task definition
+      #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      #   with:
+      #     task-definition: ${{ steps.task-def.outputs.task-definition }}
+      #     service: ${{ env.ECS_SERVICE }}
+      #     cluster: ${{ env.ECS_CLUSTER }}
+      #     wait-for-service-stability: true
