@@ -64,7 +64,9 @@ jobs:
 
       - name: Load Docker image if exists
         if: steps.cache.outputs.cache-hit == 'true'
-        run: docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
+        run: |
+          ls /tmp/docker-img-arch/
+          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
 
       - name: Login to Amazon ECR
         id: login-ecr
