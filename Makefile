@@ -42,10 +42,3 @@ build:
 task:
 	aws ecs --profile $(PROFILE) --region $(REGION)  register-task-definition --cli-input-json $(TASK_DEF_FILE)
 
-
-.PHONY: check_aws_profile
-push: check_aws_profile
-	aws ecr get-login-password --region ap-northeast-1 --profile=tohi.work-admin | docker login --username AWS --password-stdin 665378081513.dkr.ecr.ap-northeast-1.amazonaws.com 
-	docker build -t morpheus-sample -f $(APP_DOCKERFILE) .
-	docker tag morpheus-sample:latest 665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus-sample:latest
-	docker push 665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus-sample:latest
