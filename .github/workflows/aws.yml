@@ -75,8 +75,8 @@ jobs:
         run: |
           mkdir -p ${{ env.PATH_CACHE }}
           docker build -f $DOCKERFILE -t ${{ steps.imagetag.outputs.TAG }} .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }} ${{ steps.imagetag.outputs.TAG }}
+        # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        # docker save --output ${{ steps.imagetag.outputs.PATH_TAR }} ${{ steps.imagetag.outputs.TAG }}
 
       - name: Login to Amazon ECR
         id: login-ecr
