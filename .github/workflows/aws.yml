@@ -79,7 +79,6 @@ jobs:
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         run: |
           mkdir -p ${{ env.PATH_CACHE }}
-          ls ${{ env.PATH_CACHE }}
           docker build -f $DOCKERFILE -t ${{ steps.imagetag.outputs.TAG }} .
           docker images
           docker tag ${{ steps.imagetag.outputs.TAG }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
