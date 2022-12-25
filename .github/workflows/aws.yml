@@ -64,7 +64,8 @@ jobs:
 
       - name: Load Docker image if exists
         if: steps.cache.outputs.cache-hit == 'true'
-        run: ls -la
+        run: docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
+
       #     echo ${{ steps.imagetag.outputs.PATH_TAR }}
       #     docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
 
@@ -74,7 +75,7 @@ jobs:
 
       - name: Build Docker image and save
         id: build-image
-        # if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ steps.variables.outputs.version }}
@@ -99,7 +100,8 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
+          image: image=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.ECR_REPOSITORY }}
+          # image: ${{ steps.build-image.outputs.image }}
 
       # - name: Deploy Amazon ECS task definition
       #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
