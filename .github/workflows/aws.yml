@@ -62,12 +62,9 @@ jobs:
           path: ${{ env.PATH_CACHE }}
           key: ${{ steps.imagetag.outputs.TAG }}
 
-      # - name: Load Docker image if exists
-      #   if: steps.cache.outputs.cache-hit == 'true'
-      #   run: docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
-
-      #     echo ${{ steps.imagetag.outputs.PATH_TAR }}
-      #     docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
+      - name: Load Docker image if exists
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -75,7 +72,7 @@ jobs:
 
       - name: Build Docker image and save
         id: build-image
-        # if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ steps.variables.outputs.version }}
@@ -93,8 +90,6 @@ jobs:
           echo ${{ env.PATH_CACHE }}
           echo ${{ env.PATH_TAR }}
 
-        # morpheus.Y12b1d26ae.tarというファイル名
-
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -102,7 +97,6 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.variables.outputs.version }}
-        # image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
