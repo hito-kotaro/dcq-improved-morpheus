@@ -62,9 +62,9 @@ jobs:
           path: ${{ env.PATH_CACHE }}
           key: ${{ steps.imagetag.outputs.TAG }}
 
-      - name: Load Docker image if exists
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
+      # - name: Load Docker image if exists
+      #   if: steps.cache.outputs.cache-hit == 'true'
+      #   run: docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
 
       #     echo ${{ steps.imagetag.outputs.PATH_TAR }}
       #     docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}
@@ -75,7 +75,7 @@ jobs:
 
       - name: Build Docker image and save
         id: build-image
-        if: steps.cache.outputs.cache-hit != 'true'
+        # if: steps.cache.outputs.cache-hit != 'true'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ steps.variables.outputs.version }}
@@ -100,13 +100,16 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: image=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.ECR_REPOSITORY }}
-          # image: ${{ steps.build-image.outputs.image }}
+          image: ${{ steps.build-image.outputs.image }}
+        run: |
+          echo ${{ steps.build-image.outputs.image }}
+          cat ${{ env.ECS_TASK_DEFINITION }}
+        # image: ${{ steps.build-image.outputs.image }}
 
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+      # - name: Deploy Amazon ECS task definition
+      #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      #   with:
+      #     task-definition: ${{ steps.task-def.outputs.task-definition }}
+      #     service: ${{ env.ECS_SERVICE }}
+      #     cluster: ${{ env.ECS_CLUSTER }}
+      #     wait-for-service-stability: true
