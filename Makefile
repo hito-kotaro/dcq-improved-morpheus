@@ -2,6 +2,9 @@ COMPOSE = docker compose -f ./infrastructure/docker-compose.yml
 API_CONTAINER_NAME = morpheus_api
 DB_CONTAINER_NAME = morpheus_api
 APP_DOCKERFILE = ./infrastructure/api/Dockerfile
+PROFILE = tohi.work-admin
+REGION = ap-northeast-1
+TASK_DEF_FILE = file://./infrastructure/ecs-task-def.json
 
 .PHONY: up
 up:
@@ -34,6 +37,11 @@ check_aws_profile:
 .PHONY: build
 build:
 	docker build -t morpheus-sample -f $(APP_DOCKERFILE) .
+
+.PHONY: task
+task:
+	aws ecs --profile $(PROFILE) --region $(REGION)  register-task-definition --cli-input-json $(TASK_DEF_FILE)
+
 
 .PHONY: check_aws_profile
 push: check_aws_profile

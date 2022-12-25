@@ -46,13 +46,13 @@ $ make build
 ```
 
 ###　コンテナの PUSH
-以下のコマンドでイメージをビルドして Push します
+以下のコマンドでイメージを build して Push して Deploy します
 
 ```bash
 $ make push
 ```
 
-Pushするときは、aws.yml に記載している以下のリソースを事前に作成しておく必要があります。
+Push するときは、aws.yml に記載している以下のリソースを事前に作成しておく必要があります。
 
 ```yml
 AWS_REGION: ap-northeast-1
