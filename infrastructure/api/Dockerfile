@@ -2,8 +2,7 @@ FROM node
 
 WORKDIR /morpheus
 COPY package.json .
-COPY package.lock.json .
-
+COPY yarn.lock .
 RUN yarn 
 COPY . .
 RUN yarn build
