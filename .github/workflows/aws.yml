@@ -17,7 +17,7 @@ env:
   DOCKERFILE: infrastructure/api/Dockerfile
   CONTAINER_NAME: morpheus
   ACTION_ROLE: github-actions-role
-  PATH_CACHE: /.githun/cache
+  PATH_CACHE: ~/.github/cache
 
 permissions:
   id-token: write
