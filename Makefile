@@ -49,10 +49,3 @@ push: check_aws_profile
 	docker build -t morpheus-sample -f $(APP_DOCKERFILE) .
 	docker tag morpheus-sample:latest 665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus-sample:latest
 	docker push 665378081513.dkr.ecr.ap-northeast-1.amazonaws.com/morpheus-sample:latest
-
-
-action:
-	echo "github action test push"
-	git add .
-	git commit -m 'キャッシュテスト'
-	git push origin feature/add_workflow
