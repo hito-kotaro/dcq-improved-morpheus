@@ -31,7 +31,7 @@ services:
     networks:
       - my-network
     env_file:
-      - .env
+      - .env.local
 volumes:
   db_store:
 networks:

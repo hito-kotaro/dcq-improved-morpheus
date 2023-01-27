@@ -35,6 +35,14 @@ export class QuestController {
     return { quests, total: quests.length };
   }
 
+  @Get(':id')
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+  @Permissions('read:quest')
+  async fetchById(@Param('id') id: number): Promise<Quest> {
+    console.log(id);
+    return await this.questService.fetchById(id);
+  }
+
   @Post()
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Permissions('read:quest')

@@ -19,6 +19,13 @@ export class QuestService {
     });
   }
 
+  async fetchById(id: number) {
+    return await this.questRepository.findOne({
+      where: { id },
+      relations: ['owner'],
+    });
+  }
+
   async create(data, ownerId) {
     const newQuest = {
       title: data.title,
